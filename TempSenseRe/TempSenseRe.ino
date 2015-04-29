@@ -3,7 +3,7 @@
 
 RFM69 radio;
 
-#define myFrequency RF69_433MHZ // or RF69_433MHZ (check your radio)
+#define myFrequency RF69_915MHZ // or RF69_433MHZ (check your radio)
 int myNetwork = 123; // radios must share the same network (0-255)
 int myID = 0; // radios should be given unique ID's (0-254, 255 = BROADCAST)
 
@@ -12,8 +12,9 @@ int myID = 0; // radios should be given unique ID's (0-254, 255 = BROADCAST)
 typedef struct {
   int tempC;
   int tempF;
+  int PPM;
 } Packet;
-
+  
 
 void setup() {
   Serial.begin(9600);
@@ -43,6 +44,8 @@ void loop() {
       Serial.print(newPacket.tempC);
       Serial.print("\ttempF = ");
       Serial.println(newPacket.tempF);
+      Serial.print("\tPPM = ");
+      Serial.println(newPacket.PPM);
     }
   }
 }
