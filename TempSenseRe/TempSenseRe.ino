@@ -2,11 +2,10 @@
 #include <SPI.h> // the RFM69 library uses SPI
 
 RFM69 radio;
-
+#define myNetwork 119
+#define myID 0
 #define myFrequency RF69_915MHZ // or RF69_433MHZ (check your radio)
-int myNetwork = 123; // radios must share the same network (0-255)
-int myID = 0; // radios should be given unique ID's (0-254, 255 = BROADCAST)
-
+#define serialBaud 9600
 // our pre-defined packet structure
 // this struct must be shared between all nodes
 typedef struct {
@@ -17,8 +16,7 @@ typedef struct {
   
 
 void setup() {
-  Serial.begin(9600);
-
+  Serial.begin(serialBaud);
   // setup the radio
   radio.initialize(myFrequency, myID, myNetwork);
     
@@ -26,8 +24,7 @@ void setup() {
   Serial.println("Listening for sensor nodes...");
 }
 
-void loop() {
-    
+void loop() {  
   // always check to see if we've received a message
   if (radio.receiveDone()) {
           
