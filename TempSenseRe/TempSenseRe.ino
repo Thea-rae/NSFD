@@ -2,7 +2,7 @@
 #include <SPI.h> // the RFM69 library uses SPI
 
 RFM69 radio;
-#define myNetwork 119
+#define myNetwork 123
 #define myID 0
 #define myFrequency RF69_915MHZ // or RF69_433MHZ (check your radio)
 #define serialBaud 9600
@@ -43,6 +43,11 @@ void loop() {
       Serial.println(newPacket.tempF);
       Serial.print("\tPPM = ");
       Serial.println(newPacket.PPM);
+      
+      if (radio.ACKRequested()){
+        radio.sendACK();
+        Serial.print(" - ACK sent");
+      }
     }
   }
 }
